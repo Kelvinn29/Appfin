@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinControl - Tons de Rosa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; }
+        .sidebar { transition: all 0.3s; }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+        }
+        .section { display: none; }
+        .section.active { display: block; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar w-64 bg-zinc-900 border-r border-zinc-800 flex flex-col">
+            <div class="p-6 border-b border-zinc-800">
+                <h1 class="text-2xl font-bold text-emerald-400">FinControl</h1>
+                <p class="text-zinc-400 text-sm">Tons de Rosa</p>
+            </div>
+            
+            <nav class="flex-1 p-4">
+                <button onclick="navigate('dashboard')" class="nav-item w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800 flex items-center gap-3 active">
+                    <i class="fas fa-home"></i> Dashboard
+                </button>
+                <button onclick="navigate('receber')" class="nav-item w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800 flex items-center gap-3">
+                    <i class="fas fa-hand-holding-dollar"></i> A Receber
+                </button>
+                <button onclick="navigate('entradas')" class="nav-item w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800 flex items-center gap-3">
+                    <i class="fas fa-arrow-up"></i> Entradas
+                </button>
+                <button onclick="navigate('saidas')" class="nav-item w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800 flex items-center gap-3">
+                    <i class="fas fa-arrow-down"></i> Saídas
+                </button>
+                <button onclick="navigate('dividas')" class="nav-item w-full text-left px-4 py-3 rounded-xl hover:bg-zinc-800 flex items-center gap-3">
+                    <i class="fas fa-credit-card"></i> Dívidas
+                </button>
+            </nav>
+            
+            <div class="p-4 border-t border-zinc-800">
+                <button onclick="exportCSV()" class="w-full mb-2 bg-zinc-800 hover:bg-zinc-700 py-2 rounded-xl text-sm">Exportar CSV</button>
+                <button onclick="document.getElementById('importInput').click()" class="w-full bg-emerald-600 hover:bg-emerald-500 py-2 rounded-xl text-sm">Importar CSV</button>
+                <input type="file" id="importInput" accept=".csv" class="hidden" onchange="importCSV(event)">
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Bar -->
+            <div class="bg-zinc-900 border-b border-zinc-800 p-4 flex items-center justify-between">
+                <button onclick="toggleSidebar()" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2 id="pageTitle" class="text-xl font-semibold">Dashboard</h2>
+                <button onclick="novaTransacao()" class="bg-emerald-600 hover:bg-emerald-500 px-5 py-2 rounded-2xl flex items-center gap-2">
+                    <i class="fas fa-plus"></i> Nova Transação
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="flex-1 overflow-auto p-6" id="mainContent">
+                <!-- Dashboard Content -->
+                <div id="dashboard" class="section active">
+                    <h3 class="text-2xl font-semibold mb-6">Bem-vindo de volta, Kelvin!</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-zinc-900 p-6 rounded-3xl">
+                            <p class="text-zinc-400">Saldo Previsto</p>
+                            <p id="saldoPrevisto" class="text-4xl font-bold text-emerald-400 mt-2">R$ 4.850</p>
+                        </div>
+                        <!-- More cards -->
+                    </div>
+                    <p class="mt-8 text-zinc-400">Seção em desenvolvimento - dados de exemplo carregados.</p>
+                </div>
+
+                <!-- Other sections placeholders -->
+                <div id="receber" class="section">
+                    <h3 class="text-2xl font-semibold mb-6">A Receber</h3>
+                    <p class="text-zinc-400">Funcionalidade em breve...</p>
+                </div>
+                <!-- Similar for other sections -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        
+        function navigate(section) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            document.getElementById('pageTitle').textContent = section === 'dashboard' ? 'Dashboard' : section.charAt(0).toUpperCase() + section.slice(1);
+        }
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        function novaTransacao() {
+            alert('Modal de nova transação em breve! (Funcionalidade básica)');
+        }
+        
+        function exportCSV() {
+            alert('Export CSV em breve!');
+        }
+        
+        function importCSV(e) {
+            alert('Import CSV em breve!');
+        }
+        
+        // Initialize
+        window.onload = () => {
+            console.log('FinControl carregado com sucesso!');
+        };
+    </script>
+</body>
+</html>
